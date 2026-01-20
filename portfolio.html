@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: #ffffff;
+            overflow-x: hidden;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            padding: 1.2rem 0;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(26, 54, 93, 0.08);
+        }
+
+        nav .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #1a365d;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #334155;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-weight: 500;
+            font-size: 0.95rem;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #1a365d;
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #1a365d;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        section {
+            min-height: 100vh;
+            padding: 8rem 3rem 5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1400px;
+            width: 100%;
+        }
+
+        #hero {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            position: relative;
+        }
+
+        #hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            background: radial-gradient(ellipse at top right, rgba(26, 54, 93, 0.05) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            max-width: 900px;
+        }
+
+        h1 {
+            font-size: 4.5rem;
+            margin-bottom: 1.5rem;
+            color: #1a1a1a;
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -2px;
+        }
+
+        .highlight {
+            color: #1a365d;
+            position: relative;
+            display: inline-block;
+        }
+
+        .highlight::after {
+            content: '';
+            position: absolute;
+            bottom: 8px;
+            left: 0;
+            width: 100%;
+            height: 12px;
+            background: rgba(26, 54, 93, 0.15);
+            z-index: -1;
+        }
+
+        .subtitle {
+            font-size: 1.4rem;
+            color: #64748b;
+            margin-bottom: 2.5rem;
+            font-weight: 400;
+            line-height: 1.6;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.8rem;
+            background: #1a365d;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s;
+            font-weight: 600;
+            margin-top: 1rem;
+            box-shadow: 0 4px 14px rgba(26, 54, 93, 0.3);
+        }
+
+        .cta-button:hover {
+            background: #0f2744;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(26, 54, 93, 0.4);
+        }
+
+        h2 {
+            font-size: 2.8rem;
+            margin-bottom: 4rem;
+            color: #1a1a1a;
+            font-weight: 700;
+            letter-spacing: -1px;
+            position: relative;
+            display: inline-block;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: #1a365d;
+        }
+
+        .section-header {
+            margin-bottom: 4rem;
+        }
+
+        #about {
+            background: #ffffff;
+        }
+
+        .about-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .about-text {
+            background: #f8fafc;
+            padding: 3rem;
+            border-radius: 12px;
+            border-left: 4px solid #1a365d;
+        }
+
+        .about-text p {
+            margin-bottom: 1.3rem;
+            color: #475569;
+            line-height: 1.9;
+            font-size: 1.05rem;
+        }
+
+        .about-text p:last-child {
+            margin-bottom: 0;
+        }
+
+        #top-works {
+            background: linear-gradient(to bottom, #ffffff 0%, #f8fafc 100%);
+        }
+
+        .works-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2.5rem;
+            margin-top: 2rem;
+        }
+
+        .work-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid #e2e8f0;
+            position: relative;
+        }
+
+        .work-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #1a365d 0%, #2d5a8f 100%);
+            transform: scaleX(0);
+            transition: transform 0.4s;
+        }
+
+        .work-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .work-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(26, 54, 93, 0.15);
+            border-color: #1a365d;
+        }
+
+        .work-image {
+            width: 100%;
+            height: 280px;
+            background: linear-gradient(135deg, #1a365d 0%, #2d5a8f 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .work-image::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+        }
+
+        .work-card:nth-child(2) .work-image {
+            background: linear-gradient(135deg, #0f2744 0%, #1a365d 100%);
+        }
+
+        .work-info {
+            padding: 2rem;
+        }
+
+        .work-info h3 {
+            margin-bottom: 0.8rem;
+            color: #1a1a1a;
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        .work-info p {
+            color: #64748b;
+            margin-bottom: 1.2rem;
+            line-height: 1.7;
+        }
+
+        .work-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+
+        .tag {
+            padding: 0.4rem 1rem;
+            background: #f1f5f9;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: #1a365d;
+            font-weight: 500;
+        }
+
+        #other-works {
+            background: #ffffff;
+        }
+
+        .other-works-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .other-work-card {
+            background: #f8fafc;
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s;
+        }
+
+        .other-work-card:hover {
+            background: white;
+            border-color: #1a365d;
+            transform: translateY(-5px);
+            box-shadow: 0 12px 35px rgba(26, 54, 93, 0.1);
+        }
+
+        .other-work-card h3 {
+            color: #1a365d;
+            margin-bottom: 0.8rem;
+            font-size: 1.2rem;
+        }
+
+        .other-work-card p {
+            color: #64748b;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        #products, #topics {
+            background: linear-gradient(to bottom, #f8fafc 0%, #ffffff 100%);
+        }
+
+        .knowledge-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .knowledge-item {
+            padding: 2rem 1.5rem;
+            background: white;
+            border-radius: 12px;
+            text-align: center;
+            transition: all 0.3s;
+            border: 2px solid #e2e8f0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .knowledge-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(26, 54, 93, 0.03) 0%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .knowledge-item:hover::before {
+            opacity: 1;
+        }
+
+        .knowledge-item:hover {
+            transform: translateY(-5px) scale(1.02);
+            border-color: #1a365d;
+            box-shadow: 0 10px 30px rgba(26, 54, 93, 0.12);
+        }
+
+        .knowledge-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .knowledge-item h3 {
+            color: #1a1a1a;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        #contact {
+            background: #1a365d;
+            color: white;
+        }
+
+        #contact h2 {
+            color: white;
+        }
+
+        #contact h2::after {
+            background: white;
+        }
+
+        .contact-content {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .contact-content p {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 1.15rem;
+            margin-bottom: 3rem;
+            line-height: 1.8;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .contact-item {
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .contact-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .contact-icon {
+            font-size: 2rem;
+        }
+
+        .contact-item a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+
+        .contact-item:hover a {
+            opacity: 0.8;
+        }
+
+        @media (max-width: 1024px) {
+            .works-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .other-works-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 3rem;
+            }
+
+            h2 {
+                font-size: 2.2rem;
+            }
+
+            .nav-links {
+                gap: 1.5rem;
+                font-size: 0.9rem;
+            }
+
+            section {
+                padding: 6rem 1.5rem 4rem;
+            }
+
+            nav .container {
+                padding: 0 1.5rem;
+            }
+
+            .other-works-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .knowledge-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), 
+                        transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <div class="logo">Portfolio</div>
+            <ul class="nav-links">
+                <li><a href="#hero">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#top-works">Top Works</a></li>
+                <li><a href="#other-works">Other Works</a></li>
+                <li><a href="#products">Products</a></li>
+                <!-- <li><a href="#topics">Topics</a></li> -->
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section id="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Hi, I'm<br><span class="highlight">Yuhan Rahul</span></h1>
+                <p class="subtitle">A Zoho Schools of Business student, interested in problem solving and numbers, and curious about products.</p>
+                <a href="#contact" class="cta-button">Contact</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="container">
+            <div class="section-header">
+                <h2>About Me</h2>
+            </div>
+            <div class="about-content fade-in">
+                <div class="about-text">
+                    <p>I have completed one year as a student at Zoho Schools, where I’ve been introduced to multiple business and product-related areas. Over the past year, I’ve learned the basics of content writing, sales, marketing, digital marketing, and product management, along with structured product learning.</p>
+                    <p>I’m particularly interested in understanding how products work, identifying possible areas for improvement, and working with numbers and data to make sense of information. This approach has helped me develop a steady problem-solving mindset when approaching tasks and assignments.</p>
+                    <p>As I move towards my internship phase, I’m looking to gain practical exposure by observing how teams function, learning from real use cases, and contributing as a student wherever possible.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="top-works">
+        <div class="container">
+            <div class="section-header">
+                <h2>Top Works</h2>
+            </div>
+            <div class="works-grid fade-in">
+                <div class="work-card">
+                    <img src="https://cdn-public.softwarereviews.com/production/favicons/offerings/3576/original/zoho_creator-removebg-preview.png" alt="SecureGate Project"  height="50px" width="50px" class="work-image" >
+                    <div class="work-info">
+                        <h3>SecureGate</h3>
+                        <p>I built a student gate pass application using Zoho Creator to manage entry and exit requests with an approval flow. This helped me understand user roles, workflows, and how internal applications are used in real scenarios.</p>
+                        <div class="work-tags">
+                        </div>
+                    </div>
+                </div>
+                <div class="work-card">
+                    <div class="work-image">💡</div>
+                    <div class="work-info">
+                        <h3>Project Title 2</h3>
+                        <p>Describe your second most impressive project here. What did you learn from building it? What features are you most proud of? Highlight your skills and achievements.</p>
+                        <div class="work-tags">
+                            <span class="tag">React</span>
+                            <span class="tag">API</span>
+                            <span class="tag">CSS</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="other-works">
+        <div class="container">
+            <div class="section-header">
+                <h2>Other Works</h2>
+            </div>
+            <div class="other-works-grid fade-in">
+              <a href="https://writer.zoho.in/writer/open/at9ys2fa9b3c9449547909d4732e36dd7f7af" target="_blank" style="text-decoration: none; color: inherit;">
+                <div class="other-work-card">
+                    <h3>TAM–SAM–SOM Analysis (Zoho Mail)</h3>
+                    <p>A market sizing exercise to understand the potential reach, target audience, and realistic market share for Zoho Mail.</p>
+                </div>
+                </a>
+                <a href="https://writer.zoho.in/writer/open/ywb265f76f51de16e4b3d9bab757d105af6c7" target="_blank" style="text-decoration: none; color: inherit;">
+                <div class="other-work-card">
+                    <h3>Golden Circle Framework Application</h3>
+                    <p>An analysis using the Golden Circle model to understand the “why, how, and what” behind a product or idea.</p>
+                </div>
+                </a>
+                <a href="https://workdrive.zohopublic.in/show/open/hvmuf6b90d955c0474b14ab042c3f1be7915f" target="_blank" style="text-decoration: none; color: inherit;">
+                <div class="other-work-card">
+                    <h3>Business Model Canvas (BMC)</h3>
+                    <p>A structured breakdown of a business model covering value proposition, customers, revenue streams, and key resources.</p>
+                </div>
+                </a>
+                <a href="https://writer.zoho.in/writer/open/vi8n7cf957938c01248f0bbbf97d32f5c2e9f" target="_blank" style="text-decoration: none; color: inherit;">
+                <div class="other-work-card">
+                    <h3>Story Writing Exercise</h3>
+                    <p>A creative writing piece focused on structuring a narrative with clarity, flow, and engagement.</p>
+                </div>
+                </a>
+                <a href="https://writer.zoho.in/writer/open/drduz818f05434d95448aa43aac72e4f70a0f" target="_blank" style="text-decoration: none; color: inherit;">
+                <div class="other-work-card">
+                    <h3>Grammarly & AI – Write-up</h3>
+                    <p>A short write-up exploring how AI tools like Grammarly assist writing and where human judgment still matters.</p>
+                </div>
+                </a>
+                <a href="https://writer.zoho.in/writer/open/d41w536802b36accb4412ab602049b77d44fa" target="_blank" style="text-decoration: none; color: inherit;">
+                <div class="other-work-card">
+                    <h3>Diction – Write-up</h3>
+                    <p>A write-up analyzing the importance of word choice in communication and its impact on audience perception.</p>
+                </div>
+                </a>
+                <a href="https://writer.zoho.in/writer/open/nbkv1849aea80dd7b453e836eff85a04572a0" target="_blank" style="text-decoration: none; color: inherit;">
+                <div class="other-work-card">
+                    <h3>CIBIL Score – Write-up</h3>
+                    <p>An explanatory piece simplifying the concept of CIBIL scores and their importance in personal finance.</p>
+                </div>
+                </a>
+                <a href="https://writer.zoho.in/writer/open/ts5vx967073c6580d4dcf92c50d0ea85c79b8" target="_blank" style="text-decoration: none; color: inherit;">
+                <div class="other-work-card">
+                    <h3>Counter Campaign: Arattai vs WhatsApp</h3>
+                    <p>EA comparative counter-campaign idea highlighting positioning differences between Arattai and WhatsApp.</p>
+                </div>
+                </a>
+                <a href="https://writer.zoho.in/writer/open/ts5vx0fdba4561b0b41e99350f749cf149df9" target="_blank" style="text-decoration: none; color: inherit;">
+                <div class="other-work-card">
+                    <h3>Competitor Analysis – Zoho CRM</h3>
+                    <p>A competitor study comparing Zoho CRM with alternatives to understand strengths, gaps, and positioning.</p>
+                </div>
+                </a>
+                <a href="https://writer.zoho.in/writer/open/g3f7t918c70a6912748b7b7e7581356bdc384" target="_blank" style="text-decoration: none; color: inherit;">
+                <div class="other-work-card">
+                    <h3>Feature Deprecation – Zoho Desk (GC Widget)</h3>
+                    <p>A customer-facing notice informing users about the discontinuation of an existing feature and introducing an alternative.</p>
+                </div>
+                </a>
+                <div class="other-work-card">
+                    <h3>⚡ Project Name</h3>
+                    <p>Explain what you built and what you're proud of in this project.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="products">
+        <div class="container">
+            <div class="section-header">
+                <h2>Products Known</h2>
+            </div>
+            <div class="knowledge-grid fade-in">
+                <div class="knowledge-item">
+                    <img class="knowledge-icon" src="https://cdn-public.softwarereviews.com/production/favicons/offerings/3576/original/zoho_creator-removebg-preview.png" alt="Zoho Creator" style="width:80px; height:80px; margin-bottom:10px;">
+                    <h3>Zoho Creator</h3>
+                </div>
+                <div class="knowledge-item">
+                    <img class="knowledge-icon" src="https://zoho.codafish.net/wp-content/uploads/2022/08/crm-512.png" alt="Zoho CRM" style="width:80px; height:80px; margin-bottom:10px;">
+                    <h3>Zoho CRM</h3>
+                </div>
+                <div class="knowledge-item">
+                    <img class="knowledge-icon" src="https://flow-in-public.nimbuspop.com/flow-apps/zoho_forms.png" alt="Zoho Forms" style="width:70px; height:70px; margin-bottom:20px;">
+                    <h3>Zoho Forms</h3>
+                </div>
+                <div class="knowledge-item">
+                    <img class="knowledge-icon" src="https://play-lh.googleusercontent.com/qbWwj5ip7zK8hL8g_x1kFXEpTrdfX5QaDAwrbjc9BPIJ9B7aV8SEckFy2VcQexyi_A" alt="Zoho Backstage" style="width:100px; height:100px; margin-bottom:5px; margin-top:-15px;">
+                    <h3>Zoho Backstage</h3>
+                </div>
+                <div class="knowledge-item">
+                    <img class="knowledge-icon" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMFSwCiB5tkK152CabdKGFMFJ_O9QpCombmA&s" alt="Zoho Sheet" style="width:80px; height:80px; margin-bottom:10px;">
+                    <h3>Zoho Sheet</h3>
+                </div>
+                <div class="knowledge-item">
+                    <img class="knowledge-icon" src="https://desk.zoho.in/portal/api/kbCategory/205219000055731331/logo/6943819000000661462?orgId=60041003425" alt="Survey" style="width:70px; height:70px; margin-bottom:20px;">
+                    <h3>Zoho Survey</h3>
+                </div>
+                <div class="knowledge-item">
+                    <img class="knowledge-icon" src="https://www.theworkflowacademy.com/wp-content/uploads/2024/03/zoho-Desk-1024x1024.png" alt="Zoho Desk" style="width:120px; height:120px; margin-bottom:0px; margin-top: -20px;">
+                    <h3>Zoho Desk</h3>
+                </div>
+                <div class="knowledge-item">
+                    <img class="knowledge-icon" src="https://research.com/resized/uploads/zoho_flow_7638add1f6.webp?format=thumbnail" alt="Zoho Flow" style="width:80px; height:80px; margin-bottom:18px;">
+                    <h3>Zoho Flow</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- <section id="topics">
+        <div class="container">
+            <div class="section-header">
+                <h2>Topics Known</h2>
+            </div>
+            <div class="knowledge-grid fade-in">
+                <div class="knowledge-item">
+                    <div class="knowledge-icon">🎨</div>
+                    <h3>UI/UX Design</h3>
+                </div>
+                <div class="knowledge-item">
+                    <div class="knowledge-icon">🌐</div>
+                    <h3>Web Development</h3>
+                </div>
+                <div class="knowledge-item">
+                    <div class="knowledge-icon">📱</div>
+                    <h3>Responsive Design</h3>
+                </div>
+                <div class="knowledge-item">
+                    <div class="knowledge-icon">🔐</div>
+                    <h3>Web Security</h3>
+                </div>
+                <div class="knowledge-item">
+                    <div class="knowledge-icon">📊</div>
+                    <h3>Data Structures</h3>
+                </div>
+                <div class="knowledge-item">
+                    <div class="knowledge-icon">🧩</div>
+                    <h3>Algorithms</h3>
+                </div>
+                <div class="knowledge-item">
+                    <div class="knowledge-icon">🔌</div>
+                    <h3>REST APIs</h3>
+                </div>
+                <div class="knowledge-item">
+                    <div class="knowledge-icon">💾</div>
+                    <h3>Database Design</h3>
+                </div>
+                <div class="knowledge-item">
+                    <div class="knowledge-icon">🧪</div>
+                    <h3>Testing</h3>
+                </div>
+                <div class="knowledge-item">
+                    <div class="knowledge-icon">🚀</div>
+                    <h3>Problem Solving</h3>
+                </div>
+            </div>
+        </div>
+    </section> -->
+
+    <section id="contact">
+        <div class="container">
+            <div class="contact-content fade-in">
+                <div class="section-header">
+                    <h2>Let's Connect</h2>
+                </div>
+                <p>You can reach out to me using the contact details below.</p>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">📧</div>
+                        <a href="mailto:yuhan.rahul@zohocorp.com">yuhan.rahul@zohocorp.com</a>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">💼</div>
+                        <a href="https://linkedin.com/in/yuhan-rahul-3a621637a" target="_blank">LinkedIn</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                target.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // Fade in on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // Active nav link
+        window.addEventListener('scroll', () => {
+            let current = '';
+            document.querySelectorAll('section').forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.style.color = '';
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.style.color = '#1a365d';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
